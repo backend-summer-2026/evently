@@ -12,9 +12,9 @@
 | :---: | :--- | :---: | :---: |
 | **1** | [Muhit, Infratuzilma va Multi-Agent Tizimi](#1-bosqich-muhit-infratuzilma-va-multi-agent-tizimi) | ✅ Bajarildi | - |
 | **2** | [Django Core & Settings Me'morchiligi](#2-bosqich-django-core--settings-memorchiligi) | ✅ Bajarildi | 5 / 5 |
-| **3** | [Foydalanuvchilar, Autentifikatsiya va Ruxsatlar](#3-bosqich-foydalanuvchilar-autentifikatsiya-va-ruxsatlar-auth) | ✅ Bajarildi | 12 / 12 |
+| **3** | [Foydalanuvchilar, Autentifikatsiya va Ruxsatlar (Auth)](#3-bosqich-foydalanuvchilar-autentifikatsiya-va-ruxsatlar-auth) | ✅ Bajarildi | 12 / 12 |
 | **4** | [Tadbirlar Boshqaruvi va Filtrlash (Events CRUD)](#4-bosqich-tadbirlar-boshqaruvi-va-filtrlash-events-crud) | ✅ Bajarildi | 12 / 12 |
-| **5** | [Ro'yxatdan O'tish va Biznes Qoidalar (Registration)](#5-bosqich-royxatdan-otish-va-biznes-qoidalar-registration) | ❌ Kutilmoqda | 0 / 8 |
+| **5** | [Ro'yxatdan O'tish va Biznes Qoidalar (Registration)](#5-bosqich-royxatdan-otish-va-biznes-qoidalar-registration) | ✅ Bajarildi | 8 / 8 |
 | **6** | [Telegram Bot Integratsiyasi va Xabarnomalar](#6-bosqich-telegram-bot-integratsiyasi-va-xabarnomalar) | ❌ Kutilmoqda | 0 / 3 |
 | **7** | [Avtomatik Eslatmalar Mexanizmi (Reminders)](#7-bosqich-avtomatik-eslatmalar-mexanizmi-reminders) | ❌ Kutilmoqda | 0 / 2 |
 | **8** | [Alohida aiogram 3.x Telegram Bot Dasturi](#8-bosqich-alohida-aiogram-3x-telegram-bot-dasturi) | ❌ Kutilmoqda | - |
@@ -48,17 +48,17 @@
 
 - [x] **Django loyiha tuzilmasi (`config/`):**
   - [x] `manage.py`, `config/settings.py`, `config/urls.py`, `config/asgi.py`, `config/wsgi.py`.
-- [x] **Xatoliklar boshqaruvi ([config/exceptions.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/exceptions.py)):**
+- [x] **Xatoliklar boshqaruvi ([config/exceptions.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/exceptions.py)):
   - [x] `BusinessLogicError` klassi yaratildi.
   - [x] Biznes xatolar yagona formatga keltirildi: `{ "detail": "...", "code": "..." }`.
   - [x] `custom_exception_handler` DRF sozlamalariga ulandi.
-- [x] **Standartlashtirilgan Sahifalash ([config/pagination.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/pagination.py)):**
+- [x] **Standartlashtirilgan Sahifalash ([config/pagination.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/pagination.py)):
   - [x] `CustomPagination` joriy qilindi (`page_size=10`, `max_page_size=100`, `page_size_query_param='page_size'`).
   - [x] Chiqish formati: `count`, `total_pages`, `current_page`, `page_size`, `next`, `previous`, `results`.
-- [x] **Logging tizimi ([config/settings.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/settings.py)):**
+- [x] **Logging tizimi ([config/settings.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/settings.py)):
   - [x] `logs/` katalogi sozlandi.
   - [x] `logs/django.log`, `logs/errors.log`, `logs/telegram.log` fayllariga log yozish yoqildi.
-- [x] **Health Check Endpoint ([config/views.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/views.py)):**
+- [x] **Health Check Endpoint ([config/views.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/config/views.py)):
   - [x] `GET /api/v1/health/` — server, baza ulanishi va vaqt mintaqasi holatini tekshirish.
 - [x] **Swagger va OpenAPI 3 hujjatlashtirish:**
   - [x] `GET /api/schema/` — OpenAPI JSON/YAML schema.
@@ -73,24 +73,24 @@
 ## 3-BOSQICH: Foydalanuvchilar, Autentifikatsiya va Ruxsatlar (Auth)
 *Foydalanuvchi modeli, JWT tokenlar, xavfsizlik va profil boshqaruvi.*
 
-- [x] **Custom User Modeli ([apps/users/models.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/models.py)):**
+- [x] **Custom User Modeli ([apps/users/models.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/models.py)):
   - [x] `AbstractUser` asosidagi model: `email` (asosiy identifikator, unikal).
   - [x] Maydonlar: `first_name`, `last_name`, `phone_number`, `role` (`admin`/`user`), `telegram_chat_id`, `telegram_link_token`.
   - [x] Propertilar: `is_admin`, `full_name`.
-- [x] **User Manager ([apps/users/managers.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/managers.py)):**
+- [x] **User Manager ([apps/users/managers.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/managers.py)):
   - [x] `create_user(email, password, ...)` — oddiy foydalanuvchi yaratish (`role='user'`).
   - [x] `create_superuser(email, password, ...)` — superuser yaratish (`role='admin'`, `is_staff=True`, `is_superuser=True`).
-- [x] **Ruxsatlar ([apps/users/permissions.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/permissions.py)):**
+- [x] **Ruxsatlar ([apps/users/permissions.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/permissions.py)):
   - [x] `IsAdmin` — faqat admin foydalanuvchilar uchun.
   - [x] `IsAdminOrReadOnly` — xavfsiz metodlar hammaga, qolgani faqat adminga.
-- [x] **Autentifikatsiya API ([apps/users/views.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/views.py)):**
+- [x] **Autentifikatsiya API ([apps/users/views.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/views.py)):
   - [x] `POST /api/v1/auth/register/` — ro'yxatdan o'tish (parol tasdiqlash, telefon raqami formati `+998...`).
   - [x] *Xavfsizlik qoidasi:* API orqali `role='admin'` yuborilsa ham foydalanuvchi `user` bo'lib qoladi.
   - [x] `POST /api/v1/auth/login/` — SimpleJWT orqali `access` va `refresh` token olish.
   - [x] `POST /api/v1/auth/token/refresh/` — tokenni yangilash.
   - [x] `GET /api/v1/auth/me/` — o'z profilini ko'rish (faqat login qilganlar).
   - [x] `PATCH /api/v1/auth/me/` — profilni tahrirlash (rol va email o'zgartirilmaydi).
-- [x] **Django Admin integratsiyasi ([apps/users/admin.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/admin.py)):**
+- [x] **Django Admin integratsiyasi ([apps/users/admin.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/users/admin.py)):
   - [x] `UserAdmin` orqali admin paneldan boshqarish.
 
 ---
@@ -98,28 +98,28 @@
 ## 4-BOSQICH: Tadbirlar Boshqaruvi va Filtrlash (Events CRUD)
 *Tadbirlar yaratish, tahrirlash, o'chirish, qidiruv, saralash va biznes cheklovlari.*
 
-- [x] **Event Modeli ([apps/events/models.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/models.py)):**
+- [x] **Event Modeli ([apps/events/models.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/models.py)):
   - [x] Maydonlar: `title`, `description`, `event_type` (`seminar`, `masterclass`, `training`), `location`, `start_at`, `end_at`, `capacity` (null = cheksiz), `status` (`open`, `closed`), `created_by`, `created_at`, `updated_at`.
   - [x] Propertilar: `registered_count`, `available_seats`, `is_finished`.
-- [x] **Tadbirlar API ([apps/events/views.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/views.py)):**
+- [x] **Tadbirlar API ([apps/events/views.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/views.py)):
   - [x] `GET /api/v1/events/` — tadbirlar ro'yxati (ochiq API, pagination bilan).
   - [x] `GET /api/v1/events/{id}/` — tadbir haqida batafsil (ochiq API).
   - [x] `POST /api/v1/events/` — tadbir yaratish (**BR-4**: faqat admin, oddiy userga `403`, mehmonga `401`).
   - [x] `PATCH /api/v1/events/{id}/` — tadbirni tahrirlash (faqat admin).
   - [x] `DELETE /api/v1/events/{id}/` — tadbirni o'chirish (faqat admin).
   - [x] `POST /api/v1/events/{id}/close/` — tadbirni muddatidan oldin yopish (faqat admin).
-- [x] **Biznes Validatsiyalar ([apps/events/serializers.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/serializers.py)):**
+- [x] **Biznes Validatsiyalar ([apps/events/serializers.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/serializers.py)):
   - [x] **BR-7:** `end_at` har doim `start_at` dan keyin bo'lishi shart.
   - [x] **BR-8:** Yangi tadbir yaratishda `start_at` o'tgan sanaga qo'yilishi taqiqlanadi.
   - [x] **BR-9:** `capacity` ni mavjud faol qatnashuvchilar sonidan kamaytirib bo'lmaydi (`code: capacity_too_low`).
   - [x] `status` va `created_by` maydonlari oddiy patch orqali o'zgarmaydi (`read_only`).
-- [x] **Filtrlash va Qidiruv ([apps/events/filters.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/filters.py)):**
+- [x] **Filtrlash va Qidiruv ([apps/events/filters.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/filters.py)):
   - [x] `?event_type=seminar` bo'yicha filter.
   - [x] `?status=open` bo'yicha filter.
   - [x] `?upcoming=true` faqat kelajakdagi tadbirlarni ko'rsatish.
   - [x] `?search=django` (`title` va `description` bo'yicha qidiruv).
   - [x] `?ordering=start_at` / `-start_at` bo'yicha saralash.
-- [x] **Django Admin integratsiyasi ([apps/events/admin.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/admin.py)):**
+- [x] **Django Admin integratsiyasi ([apps/events/admin.py](file:///C:/Users/User/Desktop/NajotTalim/PROJECT/evently/apps/events/admin.py)):
   - [x] `EventAdmin` filtrlash va qidiruv bilan ulandi.
 
 ---
@@ -127,25 +127,25 @@
 ## 5-BOSQICH: Ro'yxatdan O'tish va Biznes Qoidalar (Registration)
 *Tadbirga yozilish, chiqish, joylarni nazorat qilish va race condition himoyasi.*
 
-- [ ] **Registration Modeli:**
-  - [ ] `user` (ForeignKey User), `event` (ForeignKey Event), `status` (`active` / `cancelled`), `reminder_sent` (bool), `created_at`, `cancelled_at`.
-  - [ ] **Majburiy Constraint:** `UniqueConstraint(fields=['user', 'event'], name='unique_user_event_registration')`.
-- [ ] **Tadbirga yozilish xizmati (`apps/events/services.py`):**
-  - [ ] `register_for_event(user, event)` logikasi.
-  - [ ] **BR-1:** Bir foydalanuvchi bir tadbirga faqat 1 marta yoziladi (mavjud bo'lsa xato yoki qayta faollashtirish).
-  - [ ] **BR-2:** `capacity` tekshiruvi (agar to'lgan bo'lsa `code: event_full`).
-  - [ ] **BR-3:** Boshlangan yoki o'tib ketgan tadbirga yozilish taqiqlanadi (`code: event_started`).
-  - [ ] **BR-5:** Yopilgan tadbirga yozilish taqiqlanadi (`code: event_closed`).
-  - [ ] **Race condition himoyasi:** `with transaction.atomic(): Event.objects.select_for_update()`.
-- [ ] **Tadbirdan chiqish xizmati (`apps/events/services.py`):**
-  - [ ] `unregister_from_event(user, event)` logikasi.
-  - [ ] **BR-6:** Boshlangan tadbirdan chiqish taqiqlanadi (`code: event_started`).
-  - [ ] `status = cancelled`, `cancelled_at = now()` belgilanadi va tadbirdagi joy boshqalarga ochiladi.
-- [ ] **Ro'yxatdan o'tish API Endpointlari:**
-  - [ ] `POST /api/v1/events/{id}/register/` — tadbirga yozilish (login qilgan user).
-  - [ ] `POST /api/v1/events/{id}/unregister/` — tadbirdan chiqish (login qilgan user).
-  - [ ] `GET /api/v1/me/registrations/` — **BR-10**: foydalanuvchi faqat o'zi yozilgan tadbirlarni ko'radi (`?status=active/cancelled`).
-  - [ ] `GET /api/v1/events/{id}/participants/` — faqat admin uchun: faol qatnashuvchilar ro'yxati (ism, email, telefon).
+- [x] **Registration Modeli:**
+  - [x] `user` (ForeignKey User), `event` (ForeignKey Event), `status` (`active` / `cancelled`), `reminder_sent` (bool), `created_at`, `cancelled_at`.
+  - [x] **Majburiy Constraint:** `UniqueConstraint(fields=['user', 'event'], name='unique_user_event_registration')`.
+- [x] **Tadbirga yozilish xizmati (`apps/events/services.py`):**
+  - [x] `register_for_event(user, event)` logikasi.
+  - [x] **BR-1:** Bir foydalanuvchi bir tadbirga faqat 1 marta yoziladi (mavjud bo'lsa xato yoki qayta faollashtirish).
+  - [x] **BR-2:** `capacity` tekshiruvi (agar to'lgan bo'lsa `code: event_full`).
+  - [x] **BR-3:** Boshlangan yoki o'tib ketgan tadbirga yozilish taqiqlanadi (`code: event_started`).
+  - [x] **BR-5:** Yopilgan tadbirga yozilish taqiqlanadi (`code: event_closed`).
+  - [x] **Race condition himoyasi:** `with transaction.atomic(): Event.objects.select_for_update()`.
+- [x] **Tadbirdan chiqish xizmati (`apps/events/services.py`):
+  - [x] `unregister_from_event(user, event)` logikasi.
+  - [x] **BR-6:** Boshlangan tadbirdan chiqish taqiqlanadi (`code: event_started`).
+  - [x] `status = cancelled`, `cancelled_at = now()` belgilanadi va tadbirdagi joy boshqalarga ochiladi.
+- [x] **Ro'yxatdan o'tish API Endpointlari:**
+  - [x] `POST /api/v1/events/{id}/register/` — tadbirga yozilish (login qilgan user).
+  - [x] `POST /api/v1/events/{id}/unregister/` — tadbirdan chiqish (login qilgan user).
+  - [x] `GET /api/v1/me/registrations/` — **BR-10**: foydalanuvchi faqat o'zi yozilgan tadbirlarni ko'radi (`?status=active/cancelled`).
+  - [x] `GET /api/v1/events/{id}/participants/` — faqat admin uchun: faol qatnashuvchilar ro'yxati (ism, email, telefon).
 
 ---
 

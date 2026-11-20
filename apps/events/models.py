@@ -14,6 +14,11 @@ class EventStatus(models.TextChoices):
     CLOSED = 'closed', 'Yopiq'
 
 
+class RegistrationStatus(models.TextChoices):
+    ACTIVE = 'active', 'Faol'
+    CANCELLED = 'cancelled', 'Bekor qilingan'
+
+
 class Event(models.Model):
     title = models.CharField(max_length=200, verbose_name="Sarlavha")
     description = models.TextField(verbose_name="Tavsif")
@@ -60,12 +65,7 @@ class Event(models.Model):
     def registered_count(self) -> int:
         if hasattr(self, '_registered_count'):
             return self._registered_count
-        try:
-            if hasattr(self, 'registrations'):
-                return self.registrations.filter(status='active').count()
-        except Exception:
-            pass
-        return 0
+        return self.registrations.filter(status=RegistrationStatus.ACTIVE).count()
 
     @property
     def available_seats(self):
@@ -78,3 +78,51 @@ class Event(models.Model):
         if self.end_at:
             return self.end_at < timezone.now()
         return False
+
+
+class Registration(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='registrations',
+        verbose_name="Foydalanuvchi"
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+        related_name='registrations',
+        verbose_name="Tadbir"
+    )
+    status = models.CharField(
+        max_length=15,
+        choices=RegistrationStatus.choices,
+        default=RegistrationStatus.ACTIVE,
+        verbose_name="Holat"
+    )
+    reminder_sent = models.BooleanField(
+        default=False,
+        verbose_name="Eslatma yuborilganmi"
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Ro'yxatdan o'tgan vaqt"
+    )
+    cancelled_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name="Bekor qilingan vaqt"
+    )
+
+    class Meta:
+        verbose_name = "Ro'yxatdan o'tish"
+        verbose_name_plural = "Ro'yxatdan o'tishlar"
+        ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'event'],
+                name='unique_user_event_registration'
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.user.email} -> {self.event.title} ({self.status})"

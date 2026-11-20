@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.events.models import Event
+from apps.events.models import Event, Registration
 
 
 @admin.register(Event)
@@ -19,3 +19,20 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'location')
     ordering = ('-start_at',)
     readonly_fields = ('created_at', 'updated_at')
+
+
+@admin.register(Registration)
+class RegistrationAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'user',
+        'event',
+        'status',
+        'reminder_sent',
+        'created_at',
+        'cancelled_at',
+    )
+    list_filter = ('status', 'reminder_sent', 'created_at')
+    search_fields = ('user__email', 'event__title')
+    ordering = ('-created_at',)
+    readonly_fields = ('created_at',)

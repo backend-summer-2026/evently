@@ -1,10 +1,11 @@
 from django.utils import timezone
 from rest_framework import serializers
 from config.exceptions import BusinessLogicError
-from apps.events.models import Event, EventType, EventStatus
+from apps.events.models import Event, EventType, EventStatus, Registration, RegistrationStatus
 
 
 class EventListSerializer(serializers.ModelSerializer):
+    registered_count = serializers.IntegerField(read_only=True)
     available_seats = serializers.IntegerField(read_only=True)
     is_registered = serializers.SerializerMethodField()
 
@@ -17,6 +18,7 @@ class EventListSerializer(serializers.ModelSerializer):
             'location',
             'start_at',
             'capacity',
+            'registered_count',
             'available_seats',
             'status',
             'is_registered',
@@ -26,9 +28,7 @@ class EventListSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if not request or not request.user or not request.user.is_authenticated:
             return False
-        if hasattr(obj, 'registrations'):
-            return obj.registrations.filter(user=request.user, status='active').exists()
-        return False
+        return obj.registrations.filter(user=request.user, status=RegistrationStatus.ACTIVE).exists()
 
 
 class EventDetailSerializer(serializers.ModelSerializer):
@@ -63,9 +63,7 @@ class EventDetailSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if not request or not request.user or not request.user.is_authenticated:
             return False
-        if hasattr(obj, 'registrations'):
-            return obj.registrations.filter(user=request.user, status='active').exists()
-        return False
+        return obj.registrations.filter(user=request.user, status=RegistrationStatus.ACTIVE).exists()
 
 
 class EventCreateUpdateSerializer(serializers.ModelSerializer):
@@ -141,3 +139,38 @@ class EventCreateUpdateSerializer(serializers.ModelSerializer):
                 )
 
         return attrs
+
+
+class ParticipantSerializer(serializers.ModelSerializer):
+    registration_id = serializers.IntegerField(source='id')
+    user_id = serializers.IntegerField(source='user.id')
+    full_name = serializers.CharField(source='user.full_name')
+    email = serializers.EmailField(source='user.email')
+    phone_number = serializers.CharField(source='user.phone_number')
+    registered_at = serializers.DateTimeField(source='created_at')
+
+    class Meta:
+        model = Registration
+        fields = [
+            'registration_id',
+            'user_id',
+            'full_name',
+            'email',
+            'phone_number',
+            'registered_at',
+        ]
+
+
+class MyRegistrationSerializer(serializers.ModelSerializer):
+    event = EventListSerializer(read_only=True)
+
+    class Meta:
+        model = Registration
+        fields = [
+            'id',
+            'event',
+            'status',
+            'reminder_sent',
+            'created_at',
+            'cancelled_at',
+        ]

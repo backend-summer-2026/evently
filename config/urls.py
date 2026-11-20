@@ -22,7 +22,7 @@ urlpatterns = [
 
     # API v1 routes
     path('api/v1/auth/', include('apps.users.urls', namespace='auth')),
-    path('api/v1/events/', include('apps.events.urls', namespace='events')),
+    path('api/v1/', include('apps.events.urls', namespace='events')),
 ]
 
 if settings.DEBUG:
