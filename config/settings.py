@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'apps.users.apps.UsersConfig',
+    'apps.events.apps.EventsConfig',
 ]
 
 MIDDLEWARE = [

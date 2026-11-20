@@ -16,4 +16,5 @@ urlpatterns = [
 
     # API v1 routes
     path('api/v1/auth/', include('apps.users.urls', namespace='auth')),
+    path('api/v1/events/', include('apps.events.urls', namespace='events')),
 ]
