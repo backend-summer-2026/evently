@@ -1,0 +1,38 @@
+{
+  "system_name": "Multi-Agent Development Engine",
+  "version": "1.0.0",
+  "orchestrator": {
+    "base_branch": "develop",
+    "protected_branches": ["main", "develop"],
+    "feature_branch_prefix": "feat/",
+    "max_review_cycles": 3,
+    "auto_merge_on_approval": true,
+    "delete_feature_branch_on_merge": true
+  },
+  "agents": {
+    "orchestrator": {
+      "path": "agents/orchestrator/agent.md",
+      "role": "Master Orchestrator & Flow Controller"
+    },
+    "architect": {
+      "path": "agents/architect/agent.md",
+      "role": "System Architect & Tech Lead"
+    },
+    "engineer": {
+      "path": "agents/engineer/agent.md",
+      "role": "Senior Software Engineer"
+    },
+    "reviewer": {
+      "path": "agents/reviewer/agent.md",
+      "role": "Principal Code Reviewer & QA Lead"
+    }
+  },
+  "rules": [
+    "rules/multi-agent-workflow.md",
+    "rules/code-standards.md"
+  ],
+  "skills": [
+    "skills/git-flow.md",
+    "skills/test-runner.md"
+  ]
+}
